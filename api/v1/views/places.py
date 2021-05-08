@@ -36,7 +36,7 @@ def all_places(city_id):
                 abort(Response('Missing user_id'))
             else:
                 new_place = Place(**(req))
-                storage.save()
+                new_place.save()
                 return new_place.to_dict(), 201
 
 
@@ -55,7 +55,7 @@ def specific_place(place_id):
 
     elif request.method == 'DELETE':
         place.delete()
-        storage.save()
+        place.save()
         return {}, 200
 
     elif request.method == 'PUT':
@@ -68,5 +68,5 @@ def specific_place(place_id):
                 if k not in ['id', 'created_at', 'updated_at',
                              'user_id', 'city_id']:
                     setattr(place, k, v)
-            storage.save()
+            place.save()
             return place.to_dict(), 200
