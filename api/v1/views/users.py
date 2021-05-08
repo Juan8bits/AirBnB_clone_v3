@@ -12,15 +12,12 @@ def retrieve_users():
     if request.method == 'POST':
         req = request.get_json()
         if req is None:
-            abort(400)
-            abort(Response('Not a JSON'))
+            abort(400, 'Not a JSON')
         else:
             if req.get('email') is None:
-                abort(400)
-                abort(Response('Missing email'))
+                abort(400, 'Missing email')
             elif req.get('password') is None:
-                abort(400)
-                abort(Response('Missing password'))
+                abort(400, 'Missing password')
             else:
                 new_user = User(**(req))
                 new_user.save()
@@ -37,7 +34,7 @@ def users(user_id):
     """ Route to POST, PUT, DELETE and GET by ID methods. """
 
     user = storage.get('User', user_id)
-    if state is None:
+    if user is None:
         abort(404)
 
     elif request.method == 'GET':
@@ -51,8 +48,7 @@ def users(user_id):
     elif request.method == 'PUT':
         req = request.get_json()
         if req is None:
-            abort(400)
-            abort(Response('Not a JSON'))
+            abort(400, 'Not a JSON')
         else:
             for k, v in req.items():
                 if k not in ['id', 'email', 'created_at', 'updated_at']:
