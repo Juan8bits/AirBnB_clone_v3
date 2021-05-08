@@ -33,10 +33,10 @@ def retrieve_users():
 @app_views.route('/users/<user_id>',
                  methods=['GET', 'DELETE', 'POST', 'PUT'],
                  strict_slashes=False)
-def states(user_id):
+def users(user_id):
     """ Route to POST, PUT, DELETE and GET by ID methods. """
 
-    user = storage.get('User', state_id)
+    user = storage.get('User', user_id)
     if state is None:
         abort(404)
 
