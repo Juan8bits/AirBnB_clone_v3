@@ -22,18 +22,15 @@ def all_places(city_id):
     else:
         req = request.get_json()
         if req is None:
-            abort(400)
-            abort(Response('Not a JSON'))
+            abort(400, 'Not a JSON')
         user = storage.get('City', req.get(user_id))
         if user is None:
             abort(404)
         else:
             if req.get('name') is None:
-                abort(400)
-                abort(Response('Missing name'))
+                abort(400, 'Missing name')
             if req.get('user_id') is None:
-                abort(400)
-                abort(Response('Missing user_id'))
+                abort(400, 'Missing user_id')
             else:
                 new_place = Place(**(req))
                 new_place.save()
@@ -61,8 +58,7 @@ def specific_place(place_id):
     elif request.method == 'PUT':
         req = request.get_json()
         if req is None:
-            abort(400)
-            abort(Response('Not a JSON'))
+            abort(400, 'Not a JSON')
         else:
             for k, v in req.items():
                 if k not in ['id', 'created_at', 'updated_at',
