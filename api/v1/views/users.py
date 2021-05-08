@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Route for States responses. """
+""" Route for User responses. """
 from api.v1.views import app_views
 from models import storage
 from flask import jsonify, abort, request
@@ -42,7 +42,7 @@ def users(user_id):
 
     elif request.method == 'DELETE':
         user.delete()
-        user.save()
+        storage.save()
         return {}, 200
 
     elif request.method == 'PUT':
