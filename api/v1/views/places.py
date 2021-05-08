@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Route for States responses. """
+""" Route for Place and City responses. """
 from api.v1.views import app_views
 from models import storage
 from flask import jsonify, abort, request
@@ -23,14 +23,15 @@ def all_places(city_id):
         req = request.get_json()
         if req is None:
             abort(400, 'Not a JSON')
-        user = storage.get('City', req.get(user_id))
+        if req.get('user_id') is None:
+            abort(400, 'Missing user_id')
+
+        user = storage.get('User', req.get(user_id))
         if user is None:
             abort(404)
         else:
             if req.get('name') is None:
                 abort(400, 'Missing name')
-            if req.get('user_id') is None:
-                abort(400, 'Missing user_id')
             else:
                 new_place = Place(**(req))
                 new_place.save()
@@ -52,7 +53,7 @@ def specific_place(place_id):
 
     elif request.method == 'DELETE':
         place.delete()
-        place.save()
+        storage.save()
         return {}, 200
 
     elif request.method == 'PUT':
