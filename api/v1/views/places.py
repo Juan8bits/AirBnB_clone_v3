@@ -26,7 +26,7 @@ def all_places(city_id):
         if req.get('user_id') is None:
             abort(400, 'Missing user_id')
 
-        user = storage.get('User', req.get(user_id))
+        user = storage.get('User', req.get('user_id'))
         if user is None:
             abort(404)
         else:
