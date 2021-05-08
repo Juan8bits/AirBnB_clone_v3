@@ -14,6 +14,11 @@ def teardown(exception):
     """ Method that call storage.close """
     storage.close()
 
+
+@app.errorhandler(404)
+def handler_error(e):
+    return {"error": "Not found"}, 404
+
 if __name__ == "__main__":
     HBNB_API_HOST = getenv('HBNB_API_HOST')
     HBNB_API_PORT = getenv('HBNB_API_PORT')
