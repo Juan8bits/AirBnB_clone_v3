@@ -31,7 +31,7 @@ def retrieve_users():
 
 
 @app_views.route('/users/<user_id>',
-                 methods=['GET', 'DELETE', 'POST', 'PUT'],
+                 methods=['GET', 'DELETE', 'PUT'],
                  strict_slashes=False)
 def users(user_id):
     """ Route to POST, PUT, DELETE and GET by ID methods. """
