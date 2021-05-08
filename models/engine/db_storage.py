@@ -77,7 +77,7 @@ class DBStorage:
 
     def get(self, cls, id):
         """Improve storage Returns the object based on the class and its ID"""
-        if cls not in classes.values():
+        if eval(cls) not in classes.values():
             return None
         for val in self.all(cls).values():
             if val.id == id:
