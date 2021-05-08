@@ -23,7 +23,7 @@ def retrieve_users():
                 abort(Response('Missing password'))
             else:
                 new_user = User(**(req))
-                storage.save()
+                new_user.save()
                 return new_user.to_dict(), 201
 
     list_ = [v.to_dict() for v in storage.all('User').values()]
@@ -45,7 +45,7 @@ def users(user_id):
 
     elif request.method == 'DELETE':
         user.delete()
-        storage.save()
+        user.save()
         return {}, 200
 
     elif request.method == 'PUT':
@@ -57,5 +57,5 @@ def users(user_id):
             for k, v in req.items():
                 if k not in ['id', 'email', 'created_at', 'updated_at']:
                     setattr(user, k, v)
-            storage.save()
+            user.save()
             return user.to_dict(), 200
