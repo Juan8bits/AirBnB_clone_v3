@@ -34,7 +34,7 @@ def all_places(city_id):
                 abort(400, 'Missing name')
             else:
                 new_place = Place(**(req))
-                new_place.save()
+                storage.save()
                 return new_place.to_dict(), 201
 
 
@@ -65,5 +65,5 @@ def specific_place(place_id):
                 if k not in ['id', 'created_at', 'updated_at',
                              'user_id', 'city_id']:
                     setattr(place, k, v)
-            place.save()
+            storage.save()
             return place.to_dict(), 200
