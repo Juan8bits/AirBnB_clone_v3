@@ -4,7 +4,9 @@ from os import getenv
 from flask import Flask, Blueprint
 from models import storage
 from api.v1.views import app_views
+from flask_cors import CORS, cross_origin
 
+cors = CORS(app, resources={r"/api/v1*": {"origins": "*"}})
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
