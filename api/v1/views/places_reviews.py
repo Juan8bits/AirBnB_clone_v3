@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Route for States responses. """
+""" Route for Review responses. """
 from api.v1.views import app_views
 from models import storage
 from flask import jsonify, abort, request
@@ -13,7 +13,7 @@ from models.review import Review
                  methods=['GET', 'POST'],
                  strict_slashes=False)
 def all_reviews(place_id):
-    """ Route to GET method. Should be retrieve all place objs. """
+    """ Route to GET and POST method. Should be retrieve all place objs. """
     place = storage.get('Place', place_id)
     if place is None:
         abort(404)
@@ -42,7 +42,7 @@ def all_reviews(place_id):
                  methods=['GET', 'PUT', 'DELETE'],
                  strict_slashes=False)
 def specific_review(review_id):
-    """ Route to GET, PUT or DELETE a city by ID """
+    """ Route to GET, PUT or DELETE a review by ID """
     review = storage.get('Review', review_id)
     if review is None:
         abort(404)
